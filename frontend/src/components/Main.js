@@ -8,7 +8,7 @@ const Main = (props) => {
         <h2>Product</h2>
         
         <div className="row">{products.map((product) =>(
-            <Product key={product.id} product={product} onAdd={onAdd}></Product>
+            <Product key={product.ProductId} product={product} onAdd={onAdd}></Product>
         ))}</div>
 
     </main>

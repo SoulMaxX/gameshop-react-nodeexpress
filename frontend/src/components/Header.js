@@ -16,7 +16,7 @@ const Header = (props) => {
       </div> */}
       <div className="login">
         <a href="/">Cart 
-        {countCartItems ? (<button>{countCartItems}</button>): ('') }
+        {countCartItems ? (<button>{countCartItems}</button>): (' ') }
         </a>
         <a href="/">Sing in</a>
       </div>

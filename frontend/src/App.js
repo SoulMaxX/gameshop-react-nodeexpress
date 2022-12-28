@@ -12,7 +12,7 @@ import axios from "axios";
   useEffect(()=>{
     async function fetchData(){
       const res = await axios.get('http://localhost:4000/',);
-      let products = res.data.products
+      let products = res.data.recordset
       setProcuct(products)
 
       // console.log(products)
@@ -21,11 +21,11 @@ import axios from "axios";
   },[])
   const [cartItems, setCartItem] = useState([]);
   const onAdd = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
+    const exist = cartItems.find((x) => x.ProductId === product.ProductId);
     if (exist) {
       setCartItem(
         cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+          x.ProductId === product.ProductId ? { ...exist, qty: exist.qty + 1 } : x
         )
       );
     } else {
@@ -33,14 +33,14 @@ import axios from "axios";
     }
   };
   const onRemove = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
+    const exist = cartItems.find((x) => x.ProductId === product.ProductId);
     if (exist.qty === 1) {
-      setCartItem(cartItems.filter((x) => x.id !== product.id));
+      setCartItem(cartItems.filter((x) => x.ProductId !== product.ProductId));
 
     } else {
       setCartItem(
         cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+          x.ProductId === product.ProductId ? { ...exist, qty: exist.qty - 1 } : x
         )
       );
     }

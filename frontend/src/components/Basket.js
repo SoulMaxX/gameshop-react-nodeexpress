@@ -2,7 +2,7 @@ import React from "react";
 
 const Basket = (props) => {
   const { cartItems, onAdd, onRemove,clear } = props;
-  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
+  const itemsPrice = cartItems.reduce((a, c) => a + c.Price * c.qty, 0);
   const shippingPrice = itemsPrice > 50000 ? 0 : 200;
   const totalPrice = itemsPrice + shippingPrice;
   return (
@@ -11,14 +11,14 @@ const Basket = (props) => {
       <div>
         {cartItems.length === 0 && <div> Cart Is Empty</div>}
         {cartItems.map((item) => (
-          <div key={item.id} className="row">
-            <div className="col-2">{item.name}</div>
+          <div key={item.ProductId} className="row">
+            <div className="col-2">{item.Name}</div>
             <div className="col-2">
               <button onClick={() => onAdd(item)}>+</button>
               <button onClick={() => onRemove(item)}>-</button>
             </div>
             <div className="col-2 text-right">
-              {item.qty} x ${item.price.toFixed(2)}
+              {item.qty} x ${item.Price.toFixed(2)}
             </div>
           </div>
         ))}
