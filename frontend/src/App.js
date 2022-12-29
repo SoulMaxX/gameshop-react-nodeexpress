@@ -2,30 +2,41 @@ import "./App.css";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Basket from "./components/Basket";
-import data from "./data";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-  function App() {
+function App() {
   // const { products } = data;
-  const [products, setProcuct] = useState([])
-  useEffect(()=>{
-    async function fetchData(){
-      const res = await axios.get('http://localhost:4000/',);
-      let products = res.data.recordset
-      setProcuct(products)
+  const [products, setProcuct] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get("http://localhost:4000/product");
+      let products = res.data;
+      setProcuct(products);
 
       // console.log(products)
     }
-    fetchData()
-  },[])
-  const [cartItems, setCartItem] = useState([]);
+    fetchData();
+  }, []);
+
+  const [cartItems, setCartItem] = useState(() => {
+    return JSON.parse(localStorage.getItem("cart-item"));
+  }, []);
+
+  useEffect(() => {
+      localStorage.setItem("cart-item", JSON.stringify(cartItems));
+
+  }, [cartItems]);
+
+
   const onAdd = (product) => {
-    const exist = cartItems.find((x) => x.ProductId === product.ProductId);
+    const exist = cartItems.find((x) => x.productid === product.productid);
     if (exist) {
       setCartItem(
         cartItems.map((x) =>
-          x.ProductId === product.ProductId ? { ...exist, qty: exist.qty + 1 } : x
+          x.productid === product.productid
+            ? { ...exist, qty: exist.qty + 1 }
+            : x
         )
       );
     } else {
@@ -33,26 +44,30 @@ import axios from "axios";
     }
   };
   const onRemove = (product) => {
-    const exist = cartItems.find((x) => x.ProductId === product.ProductId);
+    const exist = cartItems.find((x) => x.productid === product.productid);
     if (exist.qty === 1) {
-      setCartItem(cartItems.filter((x) => x.ProductId !== product.ProductId));
-
+      setCartItem(cartItems.filter((x) => x.productid !== product.productid));
     } else {
       setCartItem(
         cartItems.map((x) =>
-          x.ProductId === product.ProductId ? { ...exist, qty: exist.qty - 1 } : x
+          x.productid === product.productid
+            ? { ...exist, qty: exist.qty - 1 }
+            : x
         )
       );
     }
-  }
+  };
 
-  const clear = () => setCartItem([])
   return (
     <div className="App">
       <Header countCartItems={cartItems.length}></Header>
       <div className="row">
         <Main onAdd={onAdd} products={products}></Main>
-        <Basket onAdd={onAdd} onRemove={onRemove} clear={clear} cartItems={cartItems}></Basket>
+        <Basket
+          onAdd={onAdd}
+          onRemove={onRemove}
+          cartItems={cartItems}
+        ></Basket>
       </div>
     </div>
   );

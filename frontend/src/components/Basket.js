@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Basket = (props) => {
-  const { cartItems, onAdd, onRemove,clear } = props;
-  const itemsPrice = cartItems.reduce((a, c) => a + c.Price * c.qty, 0);
+  const { cartItems, onAdd, onRemove } = props;
+  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   const shippingPrice = itemsPrice > 50000 ? 0 : 200;
   const totalPrice = itemsPrice + shippingPrice;
   return (
@@ -11,14 +12,14 @@ const Basket = (props) => {
       <div>
         {cartItems.length === 0 && <div> Cart Is Empty</div>}
         {cartItems.map((item) => (
-          <div key={item.ProductId} className="row">
-            <div className="col-2">{item.Name}</div>
+          <div key={item.productid} className="row">
+            <div className="col-2">{item.name}</div>
             <div className="col-2">
               <button onClick={() => onAdd(item)}>+</button>
               <button onClick={() => onRemove(item)}>-</button>
             </div>
             <div className="col-2 text-right">
-              {item.qty} x ${item.Price.toFixed(2)}
+              {item.qty} x ${item.price.toFixed(2)}
             </div>
           </div>
         ))}
@@ -36,12 +37,13 @@ const Basket = (props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col-2">shippingPrice:</div>
+              <div className="col-2">TotalPrice:</div>
               <div className="col-1 text-right">${totalPrice.toFixed(2)}</div>
             </div>
             <hr></hr>
             <div>
-                <button onClick={()=> clear()}>check out</button>
+                <button >
+                  <Link to="/form">Check out</Link></button>
             </div>
           </>
         )}

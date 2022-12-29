@@ -44,3 +44,9 @@ a {
 .menu {
   padding: 0rem 1rem;
 }
+
+
+input,label,textarea {
+  margin: 0.5rem;
+
+}

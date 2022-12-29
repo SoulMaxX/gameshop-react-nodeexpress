@@ -5,9 +5,9 @@ const Product = (props) => {
   // console.log(product)
   return (
     <div>
-      <h3>{product.Name}</h3>
-      <div>${product.Price}</div>
-      <div>{product.Quantity} Quantity</div>
+      <h3>{product.name}</h3>
+      <div>${product.price}</div>
+      <div>{product.quantity} Quantity</div>
       <div>
         <button onClick={() => onAdd(product)}>Add To Cart</button>
       </div>
