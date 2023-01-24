@@ -1,11 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const Basket = (props) => {
   const { cartItems, onAdd, onRemove } = props;
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   const shippingPrice = itemsPrice > 50000 ? 0 : 200;
   const totalPrice = itemsPrice + shippingPrice;
+  const navigate = useNavigate();
+  const checkout = () => {
+    if (!localStorage.getItem('user')) {
+      navigate('/login')
+    } else {
+      navigate('/form')
+    }
+  }
   return (
     <div className="block col-1">
       <h2>Cart Items</h2>
@@ -42,8 +50,7 @@ const Basket = (props) => {
             </div>
             <hr></hr>
             <div>
-                <button >
-                  <Link to="/form">Check out</Link></button>
+              <button onClick={checkout}>Check out</button>
             </div>
           </>
         )}

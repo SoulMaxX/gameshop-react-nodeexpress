@@ -23,6 +23,11 @@ function App() {
     return JSON.parse(localStorage.getItem("cart-item"));
   }, []);
 
+  if(!localStorage.getItem("cart-item")){
+
+    localStorage.setItem("cart-item", JSON.stringify([]))
+  }
+
   useEffect(() => {
       localStorage.setItem("cart-item", JSON.stringify(cartItems));
 

@@ -9,6 +9,9 @@ const Form = (props) => {
     email: "",
   });
 
+  const user = JSON.parse(localStorage.getItem('user')) 
+  // console.log(user)
+
   const handleChange = (e) => {
     // console.log(e.target.name);
 
@@ -41,7 +44,7 @@ const Form = (props) => {
         <br />
         <label>Email</label>
         <br />
-        <input type="email" name="email" onChange={handleChange} />
+        <input type="email" name="email" onChange={handleChange} value={user.email}/>
         <br />
         <input type={"submit"} />
       </form>

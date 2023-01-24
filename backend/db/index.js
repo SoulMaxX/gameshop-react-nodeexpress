@@ -2,8 +2,8 @@ const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
   'Store',
-  'soulmaxx',
-  '654321',
+  'sa',
+  'Mm654321',
   {
     host: 'localhost',
     dialect:"mssql"
@@ -14,5 +14,6 @@ db.Sequelize= Sequelize
 db.sequelize= sequelize
 
 db.product = require('./model/product')(sequelize,Sequelize);
+db.users = require('./model/user')(sequelize,Sequelize);
 
 module.exports = db;

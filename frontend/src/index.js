@@ -5,6 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Form from "./components/Form";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +16,8 @@ root.render(
       <Routes>
         <Route index element={<App/>} ></Route>
         <Route path="form" element={<Form/>} ></Route>
+        <Route path="login" element={<Login/>}></Route>
+        <Route path="register" element={<Register/>}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

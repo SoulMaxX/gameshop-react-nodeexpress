@@ -21,6 +21,11 @@ a {
   justify-content: space-between;
 }
 
+.product{
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .col-1 {
   flex: 1;
 }
@@ -50,3 +55,12 @@ input,label,textarea {
   margin: 0.5rem;
 
 }
+
+.form-login {
+  background-color: sandybrown;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
