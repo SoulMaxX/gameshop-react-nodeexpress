@@ -102,6 +102,19 @@ app.post('/login', async (req, res) => {
   }
 })
 
+app.get('/order', async (req, res) => {
+  let param = req.query.userid
+  const orders = await order.findAll({where: {userid: param} })
+  res.json(orders)
+})
+
+app.get('/orderdetail', async (req, res) => {
+  let paramorder = req.query.orderid
+  const orders = await order.findOne({ where: { orderid: paramorder }, include: { all: true, nested: true, attributes: { exclude: ['password', 'confirmpassword'] } } })
+  res.json(orders)
+})
+
+
 app.post('/order', async (req, res) => {
 
 
@@ -116,7 +129,7 @@ app.post('/order', async (req, res) => {
   let result = await orders.save()
   // res.send(result)
   // console.log(data.cart[0].productid)
-  for (let index = 0; index < data.cart.length ; index++) {
+  for (let index = 0; index < data.cart.length; index++) {
     const productid = data.cart[index].productid;
     const qty = data.cart[index].qty;
     console.log(productid)
@@ -127,7 +140,7 @@ app.post('/order', async (req, res) => {
     })
 
     // let resultorder = await orderitems.save()
-    
+
   }
   res.json(result)
   // console.log(data.productid.length)

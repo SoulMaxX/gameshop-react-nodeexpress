@@ -14,6 +14,8 @@ code {
 
 a {
   text-decoration: none;
+  margin-right:5px;
+
 }
 
 .row {
@@ -64,3 +66,22 @@ input,label,textarea {
   text-align: center;
 }
 
+.order{
+  text-align: center;
+
+  /* border: 1px solid; */
+  /* border-color: aliceblue; */
+}
+
+table,thead,th, tr,td{
+  border: 1px solid;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+
+}
+
+th, td {
+  padding: 15px;
+ 
+}

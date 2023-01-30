@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Form from "./components/Form";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Order from "./components/Order";
+import Orderdetail from "./components/Orderdetail";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,6 +20,8 @@ root.render(
         <Route path="form" element={<Form/>} ></Route>
         <Route path="login" element={<Login/>}></Route>
         <Route path="register" element={<Register/>}></Route>
+        <Route path="order" element={<Order/>}></Route>
+        <Route path="orderdetail" element={<Orderdetail/>}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -24,7 +24,7 @@ const Header = (props) => {
         <a href="/">Cart
           {countCartItems ? (<button>{countCartItems}</button>) : (' ')}
         </a>
-        <span> {auth ? <span><a href="/">{authobject.username}</a> <a onClick={logout} href="/">logout</a></span> : <a href="/login">Sing in</a>}
+        <span> {auth ? <span><a href="/order" >Order</a><a href="/">{authobject.username}</a> <a onClick={logout} href="/">logout</a></span> : <a href="/login">Sing in</a>}
         </span>
 
       </div>
