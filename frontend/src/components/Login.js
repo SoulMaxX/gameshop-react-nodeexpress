@@ -15,7 +15,7 @@ const Login = () => {
             ,
             { headers: { 'Content-Type': 'application/json' } }
         )
-        console.log(result)
+        // console.log(result)
         if (result.data.username) {
             localStorage.setItem('user', JSON.stringify(result.data))
             navigate("/")
@@ -26,7 +26,7 @@ const Login = () => {
     }
     return <div className="form-login">
         <h1>Please Login</h1>
-        <form action="post">
+        <form>
             <div>
                 <input name="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} required></input>
             </div>
