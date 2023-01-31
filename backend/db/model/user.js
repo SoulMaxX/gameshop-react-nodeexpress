@@ -7,8 +7,8 @@ module.exports = (sequelize, Sequelize) => {
                 primaryKey: true,
             },
             username: { type: Sequelize.STRING(50), unique: true },
-            password: { type: Sequelize.STRING(20) },
-            confirmpassword: { type: Sequelize.STRING(20) },
+            password: { type: Sequelize.STRING(60) },
+            lv: { type: Sequelize.STRING(20),defaultValue: "user" },
             email: { type: Sequelize.STRING(20), unique: true, validate: { isEmail: true } },
         },{
             tablename: "user",

@@ -2,12 +2,14 @@ const express = require("express");
 const app = express();
 const sql = require('mssql');
 const cookieSession = require('cookie-session');
+const bcrypt = require('bcryptjs');
 
 const db = require('./db/index');
 const { where } = require("sequelize");
-const { product, users, order, orderitem,orderstatus } = db;
+const { product, users, order, orderitem, orderstatus } = db;
 db.sequelize.sync();
 
+let salt = bcrypt.genSaltSync(10);
 
 
 // const sqlConfig = {
@@ -66,10 +68,17 @@ app.get('/product', async (req, res) => {
 
 app.post('/register', async (req, res) => {
   if (req.body.password === req.body.confirmpassword) {
-    let user = await users.create(req.body)
+    // let user = await users.create(req.body)
+    let hash = bcrypt.hashSync(req.body.password, salt)
+    let user = await users.create({
+      username: req.body.username,
+      password: hash,
+      // confirmpassword: req.body.confirmpassword,
+      email: req.body.email
+    })
     // let result = await user.save()
     delete user.dataValues.password
-    delete user.dataValues.confirmpassword
+    // delete user.dataValues.confirmpassword
     res.send(user)
   } else {
     res.send('password not match')
@@ -86,9 +95,10 @@ app.post('/login', async (req, res) => {
   // res.send(req.body)
   if (req.body.username && req.body.password) {
     const user = await users.findOne({ where: { username: req.body.username }, attributes: { exclude: ['confirmpassword'] } });
+    // console.log(pass)
     if (user) {
-      // res.send(user)
-      if (user.password == req.body.password) {
+      const pass = bcrypt.compareSync( req.body.password,user.password);
+      if (pass === true) {
         res.send(user)
       } else {
         res.send({ result: ' Password incorrect ' })
@@ -104,7 +114,7 @@ app.post('/login', async (req, res) => {
 
 app.get('/order', async (req, res) => {
   let param = req.query.userid
-  const orders = await order.findAll({where: {userid: param} })
+  const orders = await order.findAll({ where: { userid: param } })
   res.json(orders)
 })
 
@@ -145,7 +155,7 @@ app.post('/order', async (req, res) => {
     orderid: result.orderid
   })
   res.json(result)
-  
+
 })
 
 app.listen(4000, () => {
