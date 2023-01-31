@@ -4,7 +4,8 @@ const Header = (props) => {
   const { countCartItems } = props
   const auth = localStorage.getItem('user')
   const authobject = auth ? JSON.parse(auth) : []
-  // console.log(authobject.username)
+
+  // console.log(authobject.lv)
   const logout = () => {
     localStorage.setItem('user', [])
   }
@@ -21,6 +22,7 @@ const Header = (props) => {
         <a href="/">Accessories</a>
       </div> */}
       <div className="login">
+      {authobject.lv ==="admin"? <span><a href="/admin">Admin</a></span>: [] }
         <a href="/">Cart
           {countCartItems ? (<button>{countCartItems}</button>) : (' ')}
         </a>

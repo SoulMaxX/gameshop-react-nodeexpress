@@ -46,6 +46,7 @@ app.use(cookieSession({
 app.use((req, res, next) => {
   res.header("access-control-allow-origin", "*");
   // res.header("access-control-allow-method", "*");
+  res.header("Access-Control-Allow-Methods", " PUT, DELETE");
   res.header(
     "access-control-allow-headers",
     "origin,X-Requested-With,content-type,accept,Authorization"
@@ -64,6 +65,32 @@ app.get('/product', async (req, res) => {
   products = await product.findAll()
   // console.log(item)
   res.json(products);
+})
+
+app.get('/product/find', async (req, res) => {
+  const productid = req.query.productid
+  products = await product.findOne({where: {productid: productid}})
+  // console.log(item)
+  res.json(products);
+})
+
+app.post('/product/create', async(req,res)=>{
+  const item = await product.create(req.body)
+  res.json(item)
+})
+
+app.put('/product/edit',async(req,res)=>{
+  const productid = req.query.productid
+const item = await product.update(req.body,{where:{productid: productid} })
+res.json(item)
+
+})
+
+app.delete('/product/delete',async(req,res)=>{
+  const productid = req.query.productid
+ const item = await product.destroy({where: {productid: productid}})
+ res.send({ delete: productid })
+
 })
 
 app.post('/register', async (req, res) => {

@@ -9,6 +9,11 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Order from "./components/Order";
 import Orderdetail from "./components/Orderdetail";
+import Admin from "./components/Admin";
+import NotFound from "./components/Notfound";
+import Addproduct from "./components/Addproduct";
+import Editproduct from "./components/Editproduct";
+import Formedit from "./components/Formedit";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,6 +27,11 @@ root.render(
         <Route path="register" element={<Register/>}></Route>
         <Route path="order" element={<Order/>}></Route>
         <Route path="orderdetail" element={<Orderdetail/>}></Route>
+        <Route path="admin" element={<Admin/>}></Route>
+        <Route path="addproduct" element={<Addproduct/>}></Route>
+        <Route path="editproduct" element={<Editproduct/>}></Route>
+        <Route path="formedit" element={<Formedit/>}></Route>
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
