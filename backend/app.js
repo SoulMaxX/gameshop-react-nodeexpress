@@ -5,7 +5,7 @@ const cookieSession = require('cookie-session');
 
 const db = require('./db/index');
 const { where } = require("sequelize");
-const { product, users, order, orderitem, orders } = db;
+const { product, users, order, orderitem,orderstatus } = db;
 db.sequelize.sync();
 
 
@@ -140,15 +140,12 @@ app.post('/order', async (req, res) => {
     })
 
     // let resultorder = await orderitems.save()
-
   }
+  let status = await orderstatus.create({
+    orderid: result.orderid
+  })
   res.json(result)
-  // console.log(data.productid.length)
-  // let orderitems = await orderitem.create({
-  //   productid: data.productid,
-  //   qty: data.qty,
-  //   orderid: result.orderid
-  // })
+  
 })
 
 app.listen(4000, () => {
