@@ -7,7 +7,7 @@ const Admin = () => {
     const navigate = useNavigate();
 
     const admin = JSON.parse(localStorage.getItem('user')).lv
-    console.log(admin)
+    // console.log(admin)
     useEffect(() => {
 
         if (!(admin === "admin")) {

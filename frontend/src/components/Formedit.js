@@ -1,10 +1,12 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Popupdelete from "./Popupdelete"
 
 const Formedit = () => {
     // const [oldproduct,setOldproduct]= useState([])
     const navigate = useNavigate()
+    const [popup,setPopup]=useState(false)
     const [product, setProduct] = useState({
         name: "",
         price: "",
@@ -27,7 +29,7 @@ const Formedit = () => {
 
         setProduct({ ...product, [e.target.name]: e.target.value })
     }
-    console.log(product)
+    // console.log(product)
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -37,12 +39,7 @@ const Formedit = () => {
         navigate("/editproduct")
     }
 
-    const onDelete = async () => {
-        const productid = JSON.parse(localStorage.getItem('product'))
-        await axios.delete('http://127.0.0.1:4000/product/delete', { params: { productid: productid } },
-            { headers: { 'Content-Type': 'application/json' } })
-        navigate("/editproduct")
-    }
+   
     return <div>
         <div className="block">
             <h1>Edit Product Id: {product.productid}</h1>
@@ -62,7 +59,8 @@ const Formedit = () => {
                 <button type={"submit"}>Submit</button>
             </form>
             <div>
-                <button onClick={onDelete}>Delete</button>
+                <button onClick={()=>setPopup(true)}>Delete</button>
+                <Popupdelete trigger={popup} setTrigger={setPopup}></Popupdelete>
             </div>
             <button> <a href="/admin">Back</a></button>
         </div>

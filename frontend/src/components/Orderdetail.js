@@ -39,7 +39,7 @@ const Orderdetail = () => {
         ordersta()
     }
 
-    console.log(orderdetail.Orderstatus)
+    // console.log(orderdetail.Orderstatus)
     return <div>
         <Header></Header>
         <div className="block order">

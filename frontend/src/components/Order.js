@@ -25,7 +25,7 @@ const Order = () => {
         // }
 
     }, [])
-    console.log(order)
+    // console.log(order)
     return <div >
         <Header></Header>
         <div className="block order">
