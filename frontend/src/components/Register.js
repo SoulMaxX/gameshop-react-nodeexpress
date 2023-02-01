@@ -6,16 +6,16 @@ const Register = () => {
 
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
-    const [confirmpassword, setConfirmpassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
     const [email, setEmail] = useState();
     const navigate = useNavigate();
 
-    // console.log(username, password, confirmpassword, email)
+    // console.log(username, password, confirmPassword, email)
     const handlerRegister = async () => {
-        if (password === confirmpassword) {
+        if (password === confirmPassword) {
 
             await axios.post('http://127.0.0.1:4000/register',
-                { username: username, password: password, confirmpassword: confirmpassword, email: email }
+                { username: username, password: password, confirmpassword: confirmPassword, email: email }
                 ,
                 { headers: { 'Content-Type': 'application/json' } }
             )
@@ -39,7 +39,7 @@ const Register = () => {
             </div>
             <div>
                 <label>Confirm Password</label>
-                <input type={"password"} onChange={(e) => setConfirmpassword(e.target.value)}></input>
+                <input type={"password"} onChange={(e) => setConfirmPassword(e.target.value)}></input>
             </div>
             <div>
                 <label>Email</label>

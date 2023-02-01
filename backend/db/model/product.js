@@ -13,6 +13,7 @@ module.exports = (sequelize, Sequelize) => {
       name: { type: Sequelize.STRING(50) },
       price: { type: Sequelize.DECIMAL(8, 2) },
       quantity: { type: Sequelize.INTEGER(10) },
+      image: { type: Sequelize.STRING(30)}
     },
     {
       tablename: "product",

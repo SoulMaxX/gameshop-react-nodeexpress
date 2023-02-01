@@ -3,6 +3,7 @@ const app = express();
 const sql = require('mssql');
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
 
 const db = require('./db/index');
 const { where } = require("sequelize");
@@ -11,6 +12,15 @@ db.sequelize.sync();
 
 let salt = bcrypt.genSaltSync(10);
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+const upload = multer({ storage: storage })
 
 // const sqlConfig = {
 
@@ -69,28 +79,37 @@ app.get('/product', async (req, res) => {
 
 app.get('/product/find', async (req, res) => {
   const productid = req.query.productid
-  products = await product.findOne({where: {productid: productid}})
+  products = await product.findOne({ where: { productid: productid } })
   // console.log(item)
   res.json(products);
 })
 
-app.post('/product/create', async(req,res)=>{
+app.post('/product/create', async (req, res) => {
   const item = await product.create(req.body)
   res.json(item)
 })
 
-app.put('/product/edit',async(req,res)=>{
+app.put('/product/edit', async (req, res) => {
   const productid = req.query.productid
-const item = await product.update(req.body,{where:{productid: productid} })
-res.json(item)
+  const item = await product.update(req.body, { where: { productid: productid } })
+  res.json(item)
 
 })
 
-app.delete('/product/delete',async(req,res)=>{
+app.delete('/product/delete', async (req, res) => {
   const productid = req.query.productid
- const item = await product.destroy({where: {productid: productid}})
- res.send({ delete: productid })
+  const item = await product.destroy({ where: { productid: productid } })
+  res.send({ delete: productid })
 
+})
+
+app.get('/image/:name',(req,res)=>{
+  const image = req.params.name
+  res.sendFile(__dirname+"/uploads/"+image)
+})
+
+app.post('/upload',upload.single('file'),(req,res)=>{
+  res.send(req.file)
 })
 
 app.post('/register', async (req, res) => {
@@ -124,7 +143,7 @@ app.post('/login', async (req, res) => {
     const user = await users.findOne({ where: { username: req.body.username }, attributes: { exclude: ['confirmpassword'] } });
     // console.log(pass)
     if (user) {
-      const pass = bcrypt.compareSync( req.body.password,user.password);
+      const pass = bcrypt.compareSync(req.body.password, user.password);
       if (pass === true) {
         res.send(user)
       } else {
