@@ -20,6 +20,7 @@ const Admin = () => {
             <h1>Admin</h1>
             <a href="/addproduct"> Add Product</a>
             <a href="/editproduct"> Edit Product</a>
+            <a href="/editorder"> Edit Order</a>
         </div>
     </div>
     )

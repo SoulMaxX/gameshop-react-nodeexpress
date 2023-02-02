@@ -14,6 +14,9 @@ import NotFound from "./components/Notfound";
 import Addproduct from "./components/Addproduct";
 import Editproduct from "./components/Editproduct";
 import FormeditProduct from "./components/FormeditProduct";
+import EditOrder from "./components/Editorder";
+import Orderstatus from "./components/Orderstatus";
+import Editstatus from "./components/Orderstatus";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -31,6 +34,9 @@ root.render(
         <Route path="addproduct" element={<Addproduct/>}></Route>
         <Route path="editproduct" element={<Editproduct/>}></Route>
         <Route path="formeditproduct" element={<FormeditProduct/>}></Route>
+        <Route path="editorder" element={<EditOrder/>}></Route>
+        <Route path="orderstatus" element={<Orderstatus/>}></Route>
+        <Route path="editstatus" element={<Editstatus/>}></Route>
         <Route path="*" element={<NotFound/>} />
       </Routes>
     </BrowserRouter>

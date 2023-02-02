@@ -100,9 +100,9 @@ app.put('/product/editqty', async (req, res) => {
   const data = req.body
   for (let index = 0; index < data.cart.length; index++) {
     const productid = data.cart[index].productid;
-    const qty = data.cart[index].quantity-data.cart[index].qty;
-    
-    const item = await product.update({quantity: qty}, { where: { productid: productid } })
+    const qty = data.cart[index].quantity - data.cart[index].qty;
+
+    const item = await product.update({ quantity: qty }, { where: { productid: productid } })
   }
   res.send('update')
 
@@ -116,12 +116,12 @@ app.delete('/product/delete', async (req, res) => {
 
 })
 
-app.get('/image/:name',(req,res)=>{
+app.get('/image/:name', (req, res) => {
   const image = req.params.name
-  res.sendFile(__dirname+"/uploads/"+image)
+  res.sendFile(__dirname + "/uploads/" + image)
 })
 
-app.post('/upload',upload.single('file'),(req,res)=>{
+app.post('/upload', upload.single('file'), (req, res) => {
   res.send(req.file)
 })
 
@@ -173,7 +173,11 @@ app.post('/login', async (req, res) => {
 
 app.get('/order', async (req, res) => {
   let param = req.query.userid
-  const orders = await order.findAll({ where: { userid: param } })
+  const orders = await order.findAll({ where: { userid: param }, include: { all: true, nested: true } })
+  res.json(orders)
+})
+app.get('/allorder', async (req, res) => {
+  const orders = await order.findAll({ include: { all: true, nested: true } })
   res.json(orders)
 })
 
@@ -215,6 +219,17 @@ app.post('/order', async (req, res) => {
   })
   res.json(result)
 
+})
+
+app.delete('/orderdelete',async(req,res)=>{
+  let orderid = req.query.orderid
+  const orders = await order.destroy({where: {orderid: orderid}})
+  res.json(orders)
+})
+app.put('/editstatus', async (req, res) => {
+  let orderid = req.query.orderid
+  const status = await orderstatus.update(req.body, { where: { orderid: orderid } })
+  res.json(status)
 })
 
 app.listen(4000, () => {

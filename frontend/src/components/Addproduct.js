@@ -1,6 +1,7 @@
 import axios from "axios"
-import {  useState } from "react"
-import {  useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import Header from "./Header"
 
 const Addproduct = () => {
     const navigate = useNavigate()
@@ -49,31 +50,33 @@ const Addproduct = () => {
 
 
 
-    return <div className="block">
-        <h1>Add Product</h1>
-        <form onSubmit={onSubmit}>
-            <div>
-                <label>Product Name :</label>
-                <input type="text" name="name" onChange={handleChange}></input>
-            </div>
-            <div>
-                <label>Price :</label>
-                <input type="number" name="price" onChange={handleChange}></input>
-            </div>
-            <div>
-                <label>Quantity :</label>
-                <input type="number" name="quantity" onChange={handleChange}></input>
-            </div>
-            <div>
-                <img src={imagePre} style={{ width: "200px", height: "200px" }}></img>
-                <br></br>
-                <label>Image Product :</label>
-                <input onChange={handleUpload} type="file" />
-            </div>
-            <button type={"submit"}>Submit</button>
-        </form>
-        {/* <Uploadimage></Uploadimage> */}
-        <button> <a href="/admin">Back</a></button>
+    return <div>
+        <Header></Header>
+        <div className="block">
+            <h1>Add Product</h1>
+            <form onSubmit={onSubmit}>
+                <div>
+                    <label>Product Name :</label>
+                    <input type="text" name="name" onChange={handleChange}></input>
+                </div>
+                <div>
+                    <label>Price :</label>
+                    <input type="number" name="price" onChange={handleChange}></input>
+                </div>
+                <div>
+                    <label>Quantity :</label>
+                    <input type="number" name="quantity" onChange={handleChange}></input>
+                </div>
+                <div>
+                    <img src={imagePre} style={{ width: "200px", height: "200px" }}></img>
+                    <br></br>
+                    <label>Image Product :</label>
+                    <input onChange={handleUpload} type="file" />
+                </div>
+                <button type={"submit"}>Submit</button>
+            </form>
+            <button> <a href="/admin">Back</a></button>
+        </div>
     </div>
 }
 export default Addproduct

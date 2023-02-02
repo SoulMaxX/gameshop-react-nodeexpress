@@ -8,7 +8,7 @@ const Order = () => {
     const [order, setOrder] = useState([])
     useEffect(() => {
         const fetchData = async () => {
-            const userid =JSON.parse(localStorage.getItem('user')).userid 
+            const userid = JSON.parse(localStorage.getItem('user')).userid
             const res = await axios.get("http://localhost:4000/order", { params: { userid: userid } })
             let orders = res.data
             // console.log(userid)
@@ -30,24 +30,25 @@ const Order = () => {
         <Header></Header>
         <div className="block order">
 
-        <h1>Order</h1>
-        
-        <table className="table">
-            <thead>
-                <tr>
-                    <th>order</th>
-                    <th>date</th>
-                    <th>fullname</th>
-                    <th>address</th>
-                    <th>totalprice</th>
-                </tr>
-            </thead>
-            <tbody>{order.map((order) => (
-            <Orderlist key={order.orderid} order={order}></Orderlist>
-        ))}
-              
-            </tbody>
-        </table>
+            <h1>Order</h1>
+
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Date</th>
+                        <th>Fullname</th>
+                        <th>Address</th>
+                        <th>Totalprice</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>{order.map((order) => (
+                    <Orderlist key={order.orderid} order={order}></Orderlist>
+                ))}
+
+                </tbody>
+            </table>
         </div>
     </div>
 }
