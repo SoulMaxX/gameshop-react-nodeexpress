@@ -1,7 +1,6 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
-import { json, useNavigate } from "react-router-dom"
-import Uploadimage from "./Uploadimage"
+import {  useState } from "react"
+import {  useNavigate } from "react-router-dom"
 
 const Addproduct = () => {
     const navigate = useNavigate()

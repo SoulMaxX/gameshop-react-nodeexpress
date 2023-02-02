@@ -22,8 +22,8 @@ const Basket = (props) => {
         {cartItems.map((item) => (
           <div key={item.productid} className="row">
             <div className="col-2">{item.name}</div>
-            <div className="col-2">
-              <button onClick={() => onAdd(item)}>+</button>
+            <div className="col-2">{item.quantity ===item.qty?<button disabled>+</button>:<button onClick={() => onAdd(item)}>+</button> }
+              {/* <button onClick={() => onAdd(item)}>+</button> */}
               <button onClick={() => onRemove(item)}>-</button>
             </div>
             <div className="col-2 text-right">

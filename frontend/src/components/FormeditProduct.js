@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Popupdelete from "./Popupdelete"
 
-const Formedit = () => {
+const FormeditProduct = () => {
     // const [oldproduct,setOldproduct]= useState([])
     const navigate = useNavigate()
     const [popup, setPopup] = useState(false)
@@ -95,4 +95,4 @@ const Formedit = () => {
     </div>
 
 }
-export default Formedit
+export default FormeditProduct

@@ -95,6 +95,19 @@ app.put('/product/edit', async (req, res) => {
   res.json(item)
 
 })
+app.put('/product/editqty', async (req, res) => {
+  // const productid = req.query.productid
+  const data = req.body
+  for (let index = 0; index < data.cart.length; index++) {
+    const productid = data.cart[index].productid;
+    const qty = data.cart[index].quantity-data.cart[index].qty;
+    
+    const item = await product.update({quantity: qty}, { where: { productid: productid } })
+  }
+  res.send('update')
+
+})
+
 
 app.delete('/product/delete', async (req, res) => {
   const productid = req.query.productid

@@ -4,6 +4,7 @@ import Main from "./components/Main";
 import Basket from "./components/Basket";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Footer from "./components/Footer";
 
 function App() {
   // const { products } = data;
@@ -23,29 +24,34 @@ function App() {
     return JSON.parse(localStorage.getItem("cart-item"));
   }, []);
 
-  if(!localStorage.getItem("cart-item")){
+  if (!localStorage.getItem("cart-item")) {
 
     localStorage.setItem("cart-item", JSON.stringify([]))
   }
 
   useEffect(() => {
-      localStorage.setItem("cart-item", JSON.stringify(cartItems));
+    localStorage.setItem("cart-item", JSON.stringify(cartItems));
 
   }, [cartItems]);
 
 
   const onAdd = (product) => {
+    const item = cartItems.find((x) => x.qty === product.quantity);
     const exist = cartItems.find((x) => x.productid === product.productid);
-    if (exist) {
-      setCartItem(
-        cartItems.map((x) =>
-          x.productid === product.productid
-            ? { ...exist, qty: exist.qty + 1 }
-            : x
-        )
-      );
-    } else {
-      setCartItem([...cartItems, { ...product, qty: 1 }]);
+
+    if (!item) {
+      
+      if (exist) {
+        setCartItem(
+          cartItems.map((x) =>
+            x.productid === product.productid
+              ? { ...exist, qty: exist.qty + 1 }
+              : x
+          )
+        );
+      } else {
+        setCartItem([...cartItems, { ...product, qty: 1 }]);
+      }
     }
   };
   const onRemove = (product) => {
@@ -74,6 +80,7 @@ function App() {
           cartItems={cartItems}
         ></Basket>
       </div>
+      <Footer></Footer>
     </div>
   );
 }

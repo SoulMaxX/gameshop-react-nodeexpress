@@ -13,7 +13,7 @@ import Admin from "./components/Admin";
 import NotFound from "./components/Notfound";
 import Addproduct from "./components/Addproduct";
 import Editproduct from "./components/Editproduct";
-import Formedit from "./components/Formedit";
+import FormeditProduct from "./components/FormeditProduct";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -30,7 +30,7 @@ root.render(
         <Route path="admin" element={<Admin/>}></Route>
         <Route path="addproduct" element={<Addproduct/>}></Route>
         <Route path="editproduct" element={<Editproduct/>}></Route>
-        <Route path="formedit" element={<Formedit/>}></Route>
+        <Route path="formeditproduct" element={<FormeditProduct/>}></Route>
         <Route path="*" element={<NotFound/>} />
       </Routes>
     </BrowserRouter>

@@ -8,7 +8,7 @@ const Editdetail=(props)=>{
     <td>{product.name}</td>
     <td>{product.price}</td>
     <td>{product.quantity}</td>
-    <td><a href="/formedit" onClick={handleClick}>Edit</a></td>
+    <td><a href="/formeditproduct" onClick={handleClick}>Edit</a></td>
 </tr>
 }
 export default Editdetail

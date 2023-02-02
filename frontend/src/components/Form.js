@@ -24,19 +24,24 @@ const Form = (props) => {
     setOrder({ ...order, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     await axios.post('http://127.0.0.1:4000/order',
-                { order,userid: user.userid,cart:cart,total:itemsPrice }
-                ,
-                { headers: { 'Content-Type': 'application/json' } }
-            )
-            navigate("/")
-            localStorage.setItem("cart-item",JSON.stringify([]))
+      { order, userid: user.userid, cart: cart, total: itemsPrice }
+      ,
+      { headers: { 'Content-Type': 'application/json' } }
+    )
+    localStorage.setItem("cart-item", JSON.stringify([]))
+    
+    console.log("submit", order, { cart: cart }, { total: itemsPrice });
+    
+    await axios.put('http://127.0.0.1:4000/product/editqty',
+    { cart: cart },
+    { headers: { 'Content-Type': 'application/json' } })
 
-    console.log("submit", order,{cart:cart},{total:itemsPrice});
+    navigate("/")
   };
-
+  console.log(cart)
   return (
     <div className="block">
       <form onSubmit={onSubmit}>

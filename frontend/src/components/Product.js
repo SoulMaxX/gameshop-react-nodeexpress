@@ -10,9 +10,8 @@ const Product = (props) => {
         <img src={"http://127.0.0.1:4000/image/"+product.image} style={{ width: "200px", height: "200px" }}></img>
       <h3>{product.name}</h3>
       <div>${product.price}</div>
-      <div>{product.quantity} Quantity</div>
-      <div>
-        <button onClick={() => onAdd(product)}>Add To Cart</button>
+      <div>{product.quantity != 0 ?product.quantity+" Item(s)": "Sold Out"} </div>
+      <div>{product.quantity == 0 ?<button disabled>Add To Cart</button>: <button  onClick={() => onAdd(product)}>Add To Cart</button> }
       </div>
     </div>
   );
