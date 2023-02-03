@@ -71,6 +71,20 @@ const ifNotlogin = (req, res, next) => {
   }
   next()
 }
+
+const checkAdmin = (req, res, next) => {
+  const lv = req.body.user
+  // console.log(lv)
+  // res.send('error')
+  if (lv != "admin") {
+    // res.redirect("/")
+    // res.send('error')
+    res.status(400).json({ message: 'error' });
+    
+
+  }
+   next()
+}
 app.get('/product', async (req, res) => {
   products = await product.findAll()
   // console.log(item)
@@ -84,7 +98,7 @@ app.get('/product/find', async (req, res) => {
   res.json(products);
 })
 
-app.post('/product/create', async (req, res) => {
+app.post('/product/create', checkAdmin, async (req, res) => {
   const item = await product.create(req.body)
   res.json(item)
 })
@@ -221,9 +235,9 @@ app.post('/order', async (req, res) => {
 
 })
 
-app.delete('/orderdelete',async(req,res)=>{
+app.delete('/orderdelete', async (req, res) => {
   let orderid = req.query.orderid
-  const orders = await order.destroy({where: {orderid: orderid}})
+  const orders = await order.destroy({ where: { orderid: orderid } })
   res.json(orders)
 })
 app.put('/editstatus', async (req, res) => {

@@ -12,7 +12,7 @@ const Addproduct = () => {
     })
     const [file, setFile] = useState({})
     const [imagePre, setImagePre] = useState(null)
-
+    const user = JSON.parse(localStorage.getItem("user")).lv
 
     const handleChange = (e) => {
         // console.log(e.target.value)
@@ -36,7 +36,7 @@ const Addproduct = () => {
     }
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('http://127.0.0.1:4000/product/create', { name: product.name, price: product.price, quantity: product.quantity, image: file.name },
+        await axios.post('http://127.0.0.1:4000/product/create', { name: product.name, price: product.price, quantity: product.quantity, image: file.name ,user:user},
             { headers: { 'Content-Type': 'application/json' } })
 
         const formData = new FormData()
@@ -46,7 +46,7 @@ const Addproduct = () => {
         navigate("/admin")
 
     }
-    console.log(file.name)
+    // console.log(file.name)
 
 
 
