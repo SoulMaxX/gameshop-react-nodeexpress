@@ -1,17 +1,22 @@
 import React from "react";
+import { Col, Container, Row, Stack } from "react-bootstrap";
 import Product from "./Product";
 
 const Main = (props) => {
-    const {products,onAdd} = props;
+    const { products, onAdd } = props;
     // console.log(products)
-    return <main className="block col-2">
-        <h2>Product</h2>
-        
-        <div className="product">{products.map((product) =>(
-            <Product key={product.productid} product={product} onAdd={onAdd}></Product>
-        ))}</div>
+    return (
+        <Container>
+            <Row>
+                    {/* <h2>Product</h2> */}
 
-    </main>
+                    {products.map((product) => (
+                        <Product key={product.productid} product={product} onAdd={onAdd}></Product>
+                    ))}
+                
+            </Row>
+        </Container>     
+    )
 }
 
 

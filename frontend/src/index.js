@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+// import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Form from "./components/Form";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Order from "./components/Order";
@@ -17,7 +16,9 @@ import FormeditProduct from "./components/FormeditProduct";
 import EditOrder from "./components/Editorder";
 import Orderstatus from "./components/Orderstatus";
 import Editstatus from "./components/Orderstatus";
-
+import Formorder from "./components/Formorder";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss'
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -25,7 +26,7 @@ root.render(
       {/* <App /> */}
       <Routes>
         <Route index element={<App/>} ></Route>
-        <Route path="form" element={<Form/>} ></Route>
+        <Route path="formorder" element={<Formorder/>} ></Route>
         <Route path="login" element={<Login/>}></Route>
         <Route path="register" element={<Register/>}></Route>
         <Route path="order" element={<Order/>}></Route>

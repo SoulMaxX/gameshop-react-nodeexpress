@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Orderlist from "./Orderlist";
 import Header from "./Header";
+import { Col, Container, Row, Table } from "react-bootstrap";
 
 
 const Order = () => {
@@ -26,30 +27,35 @@ const Order = () => {
 
     }, [])
     // console.log(order)
-    return <div >
-        <Header></Header>
-        <div className="block order">
+    return (<>
+            <Header></Header>
+        <Container>
+            <Row>
+                    <Col className="order bg-secondary">
+                        <h1 >Order</h1>
 
-            <h1>Order</h1>
+                        <Table variant="dark" striped >
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Date</th>
+                                    <th>Fullname</th>
+                                    <th>Address</th>
+                                    <th>Totalprice</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>{order.map((order) => (
+                                <Orderlist key={order.orderid} order={order}></Orderlist>
+                            ))}
 
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Order</th>
-                        <th>Date</th>
-                        <th>Fullname</th>
-                        <th>Address</th>
-                        <th>Totalprice</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>{order.map((order) => (
-                    <Orderlist key={order.orderid} order={order}></Orderlist>
-                ))}
+                            </tbody>
+                        </Table>
+                    </Col>
+            </Row>
+        </Container>
+    </>
 
-                </tbody>
-            </table>
-        </div>
-    </div>
+    )
 }
 export default Order

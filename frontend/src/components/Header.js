@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, Container, Navbar } from 'react-bootstrap';
 
 const Header = (props) => {
   const { countCartItems } = props
@@ -10,27 +11,21 @@ const Header = (props) => {
     localStorage.setItem('user', [])
   }
   return (
-    <header className="row block">
-      <div className="menu">
-        <a href="/">Game</a>
-      </div>
+    <Navbar className="navbar navbar-expand-lg navbar-light bg-secondary mb-3">
+      <Container >
+        <Button variant="dark" href="/">Game-Shop</Button>
+        <div className="d-flex align-items-center">
 
-      {/* <div className=" menu">
-        <a href="/">Console</a>
-      </div>
-      <div className=" menu">
-        <a href="/">Accessories</a>
-      </div> */}
-      <div className="login">
-      {authobject.lv ==="admin"? <span><a href="/admin">Admin</a></span>: [] }
-        <a href="/">Cart
-          {countCartItems ? (<button>{countCartItems}</button>) : (' ')}
-        </a>
-        <span> {auth ? <span><a href="/order" >Order</a><a href="/">{authobject.username}</a> <a onClick={logout} href="/">logout</a></span> : <a href="/login">Sing in</a>}
-        </span>
+          {authobject.lv === "admin" ? <Button className="me-2" variant="dark" href="admin">Admin</Button > : []}
+          <Button className="me-2" variant="dark" href="/">Cart
+            {/* {countCartItems ? (<Button className="me-2" variant="dark">{countCartItems}</Button>) : (' ')} */}
+          </Button>
+          {auth ? <> <Button className="me-2" variant="dark" href="/order" >Order</Button> <Button className="me-2" variant="dark" href="/">{authobject.username}</Button> <Button className="me-2" onClick={logout} variant="dark" href="/">logout</Button> </> : <Button className="me-2" variant="dark" href="/login">Sing in</Button>}
 
-      </div>
-    </header>
+        </div>
+      </Container>
+    </Navbar>
+
   );
 };
 

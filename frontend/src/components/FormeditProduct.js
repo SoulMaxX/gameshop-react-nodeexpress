@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import Popupdelete from "./Popupdelete"
 
@@ -14,6 +15,8 @@ const FormeditProduct = () => {
     })
     const [file, setFile] = useState({})
     const [imagePre, setImagePre] = useState(null)
+    const [validated, setValidated] = useState(false)
+
     useEffect(() => {
         const fetchData = async () => {
             const productid = JSON.parse(localStorage.getItem('product'))
@@ -49,50 +52,83 @@ const FormeditProduct = () => {
     }
 
     const onSubmit = async (e) => {
-        e.preventDefault();
-        const productid = JSON.parse(localStorage.getItem('product'))
-        await axios.put('http://127.0.0.1:4000/product/edit', {name: product.name, price: product.price, quantity: product.quantity, image: file.name}, { params: { productid: productid } },
-            { headers: { 'Content-Type': 'application/json' } })
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        setValidated(true)
 
-        const formData = new FormData()
-        formData.append('file', file)
-        const uploadIma = await axios.post('http://127.0.0.1:4000/upload', formData)
+        if (product.name != "" && product.price != "" && product.quantity != "") {
+            e.preventDefault();
+            const productid = JSON.parse(localStorage.getItem('product'))
+            await axios.put('http://127.0.0.1:4000/product/edit', { name: product.name, price: product.price, quantity: product.quantity, image: file.name }, { params: { productid: productid } },
+                { headers: { 'Content-Type': 'application/json' } })
 
-        navigate("/editproduct")
+            const formData = new FormData()
+            formData.append('file', file)
+            const uploadIma = await axios.post('http://127.0.0.1:4000/upload', formData)
+
+            navigate("/editproduct")
+
+        }
     }
 
 
-    return <div>
-        <div className="block">
-            <h1>Edit Product Id: {product.productid}</h1>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label>Product Name :</label>
-                    <input type="text" name="name" onChange={handleChange} value={product.name}></input>
-                </div>
-                <div>
-                    <label>Price :</label>
-                    <input type="number" name="price" onChange={handleChange} value={product.price}></input>
-                </div>
-                <div>
-                    <label>Quantity :</label>
-                    <input type="number" name="quantity" onChange={handleChange} value={product.quantity}></input>
-                </div>
-                <div>
-                    {product.image ? <img src={imagePre ? imagePre:"http://127.0.0.1:4000/image/" + product.image } style={{ width: "200px", height: "200px" }}></img> :''}
-                    <br></br>
-                    <label>Image Product :</label>
-                    <input onChange={handleUpload} type="file" />
-                </div>
-                <button type={"submit"}>Submit</button>
-            </form>
-            <div>
-                <button onClick={() => setPopup(true)}>Delete</button>
-                <Popupdelete trigger={popup} setTrigger={setPopup}></Popupdelete>
-            </div>
-            <button> <a href="/editproduct">Back</a></button>
-        </div>
-    </div>
+    return <>
+        <Container>
+            <Row>
+                <Col className="bg-secondary item">
+
+                    <h1 className="text-center">Edit Product Id: {product.productid}</h1>
+                    <Form onSubmit={onSubmit} noValidate validated={validated}>
+                        <Form.Group>
+                            <Col sm={3}>
+                                <Form.Label>Product Name :</Form.Label>
+                                <Form.Control type="text" name="name" onChange={handleChange} value={product.name} required></Form.Control>
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide Product Name.
+                                </Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group>
+                            <Col sm={3}>
+                                <Form.Label>Price :</Form.Label>
+                                <Form.Control type="number" name="price" onChange={handleChange} value={product.price} required></Form.Control>
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide Product Price.
+                                </Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group>
+                            <Col sm={3}>
+                                <Form.Label>Quantity :</Form.Label>
+                                <Form.Control type="number" name="quantity" onChange={handleChange} value={product.quantity} required></Form.Control>
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide Product Quantity.
+                                </Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group>
+                            <Col sm={3}>
+
+                                {product.image ? <img src={imagePre ? imagePre : "http://127.0.0.1:4000/image/" + product.image} style={{ width: "200px", height: "200px" }}></img> : ''}
+                                <br></br>
+                                <Form.Label>Image Product :</Form.Label>
+                                <Form.Control onChange={handleUpload} type="file" />
+                            </Col>
+                        </Form.Group>
+                        <Button className="m-2" variant="dark" type={"submit"}>Submit</Button>
+                    </Form>
+                    <div>
+                        <Button className="m-2" variant="dark" onClick={() => setPopup(true)}>Delete</Button>
+                        <Popupdelete trigger={popup} setTrigger={setPopup}></Popupdelete>
+                    </div>
+                    <Button className="m-2" variant="dark" href="/editproduct">Back</Button>
+                </Col>
+            </Row>
+        </Container>
+    </>
 
 }
 export default FormeditProduct

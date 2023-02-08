@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap"
+
 const Editdetail=(props)=>{
     const {product }= props
     const handleClick=()=>{
@@ -8,7 +10,7 @@ const Editdetail=(props)=>{
     <td>{product.name}</td>
     <td>{product.price}</td>
     <td>{product.quantity}</td>
-    <td><a href="/formeditproduct" onClick={handleClick}>Edit</a></td>
+    <td><Button variant="dark" href="/formeditproduct" onClick={handleClick}>Edit</Button></td>
 </tr>
 }
 export default Editdetail

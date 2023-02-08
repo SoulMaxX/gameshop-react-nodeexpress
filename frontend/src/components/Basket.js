@@ -1,61 +1,72 @@
 import React from "react";
-import {  useNavigate } from "react-router-dom";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Basket = (props) => {
   const { cartItems, onAdd, onRemove } = props;
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
-  const shippingPrice = itemsPrice > 50000 ? 0 : 200;
+  const shippingPrice = itemsPrice > 20000 ? 0 : 10;
   const totalPrice = itemsPrice + shippingPrice;
   const navigate = useNavigate();
   const checkout = () => {
     if (!localStorage.getItem('user')) {
       navigate('/login')
     } else {
-      navigate('/form')
+      navigate('/formorder')
     }
   }
   return (
-    <div className="block col-1">
+    
+      <Container className="bg-secondary basket ">
       <h2>Cart Items</h2>
-      <div>
-        {cartItems.length === 0 && <div> Cart Is Empty</div>}
-        {cartItems.map((item) => (
-          <div key={item.productid} className="row">
-            <div className="col-2">{item.name}</div>
-            <div className="col-2">{item.quantity ===item.qty?<button disabled>+</button>:<button onClick={() => onAdd(item)}>+</button> }
-              {/* <button onClick={() => onAdd(item)}>+</button> */}
-              <button onClick={() => onRemove(item)}>-</button>
-            </div>
-            <div className="col-2 text-right">
-              {item.qty} x ${item.price.toFixed(2)}
-            </div>
-          </div>
-        ))}
-        {cartItems.length !== 0 && (
-          <>
-            <hr></hr>
-            <div className="row">
-              <div className="col-2">itemsPrice:</div>
-              <div className="col-1 text-right">${itemsPrice.toFixed(2)}</div>
-            </div>
-            <div className="row">
-              <div className="col-2">shippingPrice:</div>
-              <div className="col-1 text-right">
-                ${shippingPrice.toFixed(2)}
+        
+          {cartItems.length === 0 && <div> Cart Is Empty</div>}
+          {cartItems.map((item) => (
+            <Row className="m-2" key={item.productid}>
+              <Col md={3} className="text-start" > {item.name}</Col>
+              <Col md={4} className="text-center" >
+                {item.quantity === item.qty ? <Button className="button-basket m-2" variant="dark" disabled>+</Button> : <Button className="button-basket m-2"  variant="dark" onClick={() => onAdd(item)}>+</Button>}
+                <Button className="button-basket m-2" variant="dark" onClick={() => onRemove(item)}>-</Button>
+              </Col>
+              <Col md={5} className="text-end">{item.qty} x ${item.price.toFixed(2)}</Col>
+            </Row>
+          ))}
+          {cartItems.length !== 0 && (
+            <Container>
+              <hr></hr>
+              <Row >
+                <Col className="text-start">
+                  ItemsPrice:
+                </Col>
+                <Col className="text-end">
+                  <div >${itemsPrice.toFixed(2)}</div>
+                </Col>
+              </Row>
+              <Row >
+                <Col className="text-start">
+                  ShippingPrice:
+                </Col>
+                <Col className="text-end">
+                  ${shippingPrice.toFixed(2)}
+                </Col>
+              </Row>
+              <Row >
+                <Col className="text-start">
+                  TotalPrice:
+                </Col>
+                <Col className="text-end">
+                  ${totalPrice.toFixed(2)}
+                </Col>
+              </Row>
+              <hr></hr>
+              <div>
+                <Button variant="dark" onClick={checkout}>Check out</Button>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-2">TotalPrice:</div>
-              <div className="col-1 text-right">${totalPrice.toFixed(2)}</div>
-            </div>
-            <hr></hr>
-            <div>
-              <button onClick={checkout}>Check out</button>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+            </Container>
+          )}
+        
+      </Container>
+    
   );
 };
 

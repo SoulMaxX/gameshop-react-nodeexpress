@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap"
+
 const Orderlist = (props) => {
     const { order } = props
     const date = new Date(order.createdAt)
@@ -7,7 +9,7 @@ const Orderlist = (props) => {
     }
     // console.log(order.Orderstatus)
     return <tr>
-        <td> <a href="/orderdetail" onClick={handleClick}>{order.orderid}</a></td>
+        <td> <Button variant="dark" href="/orderdetail" onClick={handleClick}>{order.orderid}</Button></td>
         <td>{dateformat}</td>
         <td>{order.fullname}</td>
         <td>{order.address}</td>

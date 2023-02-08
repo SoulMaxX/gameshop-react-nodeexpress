@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
+import Footer from "./Footer";
 import Header from "./Header";
 
 
@@ -14,15 +16,25 @@ const Admin = () => {
             navigate('/')
         }
     }, [])
-    return (<div>
-        <Header></Header>
-        <div className="block" >
-            <h1>Admin</h1>
-            <a href="/addproduct"> Add Product</a>
-            <a href="/editproduct"> Edit Product</a>
-            <a href="/editorder"> Edit Order</a>
-        </div>
-    </div>
+    return (
+        <>
+            <Header></Header>
+            <Container  >
+                <Row>
+                    <Col className="admin bg-secondary" >
+
+
+                        <h1>Admin</h1>
+                        <Button className="m-2" variant="dark" href="/addproduct"> Add Product</Button>
+                        <Button className="m-2" variant="dark" href="/editproduct"> Edit Product</Button>
+                        <Button className="m-2" variant="dark" href="/editorder"> Edit Order</Button>
+
+                    </Col>
+                </Row>
+
+            </Container>
+            <Footer></Footer>
+        </>
     )
 }
 export default Admin

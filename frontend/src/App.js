@@ -5,6 +5,7 @@ import Basket from "./components/Basket";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "./components/Footer";
+import { Col, Container, Row } from "react-bootstrap";
 
 function App() {
   // const { products } = data;
@@ -36,11 +37,11 @@ function App() {
 
 
   const onAdd = (product) => {
-    const item = cartItems.find((x) => x.qty === product.quantity);
+    const item = cartItems.find((x) => x.qty === product.quantity && x.productid === product.productid);
     const exist = cartItems.find((x) => x.productid === product.productid);
 
     if (!item) {
-      
+
       if (exist) {
         setCartItem(
           cartItems.map((x) =>
@@ -70,18 +71,27 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <>
       <Header countCartItems={cartItems.length}></Header>
-      <div className="row">
-        <Main onAdd={onAdd} products={products}></Main>
-        <Basket
-          onAdd={onAdd}
-          onRemove={onRemove}
-          cartItems={cartItems}
-        ></Basket>
-      </div>
+      <Container className="App">
+
+        <Row>
+
+          <Col md={8} >
+            <Main onAdd={onAdd} products={products}></Main>
+          </Col>
+          <Col md={4}>
+            <Basket
+              onAdd={onAdd}
+              onRemove={onRemove}
+              cartItems={cartItems}
+            ></Basket>
+          </Col>
+        </Row>
+      </Container>
       <Footer></Footer>
-    </div>
+    </>
+
   );
 }
 
